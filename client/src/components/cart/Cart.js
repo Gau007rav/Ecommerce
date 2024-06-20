@@ -37,6 +37,20 @@ function Cart() {
         getinddata();
     }, [id]);
 
+    let addToCart = async(id) =>{
+          console.log(id)
+          let data1 = await fetch(`http://localhost:7000/addcart/:${id}`,{
+            method:"Post",
+            headers:{
+                Accept:"application/json",
+                "Content-Type":"application/json"
+            },
+            credentials:"include"
+          })
+          let res = await data1.json();
+          console.log(res)
+    }
+
   return (
     <div className="cart_section">
          {inddata && Object.keys(inddata).length &&
@@ -44,7 +58,7 @@ function Cart() {
             <div className="left_cart">
                 <img src={inddata.detailUrl} alt="cart" />
                 <div className="cart_btn">
-                    <button className="cart_btn1"  >Add to Cart</button>
+                    <button className="cart_btn1"  onClick={()=>addToCart(inddata.id)}>Add to Cart</button>
                     <button className="cart_btn2">Buy Now</button>
                 </div>
 
